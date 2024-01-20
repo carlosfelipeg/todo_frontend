@@ -3,13 +3,19 @@ import CompletedItems from './CompletedItems';
 
 const Completed = ({ completed }) => {
   const handleSubmit = (body) => {
+    const username = "admin";
+    const password = "admin";
+
+    const headers = new Headers({
+      Authorization: `Basic ${btoa(`${username}:${password}`)}`,
+      "Content-Type": "application/json",
+    });
+
     const url = "http://localhost:3001/api/todos/update";
 
     fetch(url, {
       method: "PUT",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: headers,
       body: JSON.stringify(body)
     })
       .then(response => {

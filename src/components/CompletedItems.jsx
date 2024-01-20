@@ -11,13 +11,19 @@ const CompletedItems = ({ todo, handleSubmit }) => {
   }
 
   const handleDelete = () =>{
+    const username = "admin";
+    const password = "admin";
+
+    const headers = new Headers({
+      Authorization: `Basic ${btoa(`${username}:${password}`)}`,
+      "Content-Type": "application/json",
+    });
+
     const url = "http://localhost:3001/api/todos/destroy";
 
     fetch(url, {
       method: "DELETE",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: headers,
       body: JSON.stringify(completedTodo)
     })
       .then(response => {

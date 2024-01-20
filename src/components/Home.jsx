@@ -11,8 +11,19 @@ const Home = () => {
   const [description, setDescription] = useState('');
 
   useEffect(() => {
+    const username = "admin";
+    const password = "admin";
+
+    const headers = new Headers({
+      Authorization: `Basic ${btoa(`${username}:${password}`)}`,
+      "Content-Type": "application/json",
+    });
+
     const url = "http://localhost:3001/api/todos/all_todos";
-    fetch(url)
+    fetch(url, {
+      method: "GET",
+      headers: headers,
+    })
       .then(response => {
         if (response.ok) {
           return response.json();
@@ -49,13 +60,19 @@ const Home = () => {
       completed: false
     };
 
+    const username = "admin";
+    const password = "admin";
+
+    const headers = new Headers({
+      Authorization: `Basic ${btoa(`${username}:${password}`)}`,
+      "Content-Type": "application/json",
+    });
+
     const url = "http://localhost:3001/api/todos/create";
 
     fetch(url, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
+      headers: headers,
       body: JSON.stringify(todoBody)
     })
       .then(response => {
